@@ -5,84 +5,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>v1 Baseline — AlgoBot SISTEM-1</title>
 <style>
-  :root{--bg:#0D1117;--panel:#161B22;--border:#21262D;--text:#E6EDF3;--muted:#8B949E;--accent:#58A6FF;--green:#3FB950;--red:#F85149;--yellow:#D29922;--purple:#A78BFA;--blue:#60A5FA;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;}
-  nav{background:var(--panel);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:24px;height:52px;position:sticky;top:0;z-index:100;}
-  .nav-logo{font-weight:800;font-size:15px;color:var(--accent);letter-spacing:1px;text-decoration:none;}
-  .nav-logo span{color:var(--muted);font-weight:400;}
-  nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:4px 0;border-bottom:2px solid transparent;}
-  nav a:hover,nav a.active{color:var(--text);border-bottom-color:var(--accent);}
-  .nav-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
-  .v-pill{background:rgba(88,166,255,.15);color:var(--accent);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid rgba(88,166,255,.3);}
-  main{max-width:1200px;margin:0 auto;padding:36px 32px;}
-  .page-header{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
-  .page-header h1{font-size:24px;font-weight:700;}
-  .page-header .meta{color:var(--muted);font-size:13px;margin-top:4px;}
-  .top-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
-  .bot-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:22px;}
-  .bot-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-  .bot-dot{width:10px;height:10px;border-radius:50%;}
-  .dot-scalp{background:#3B82F6;}.dot-swing{background:#8B5CF6;}
-  .bot-name{font-size:16px;font-weight:700;}
-  .bot-type{font-size:11px;background:var(--border);color:var(--muted);padding:2px 8px;border-radius:20px;}
-  .status-badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
-  .status-profit{background:rgba(63,185,80,.1);color:var(--green);border:1px solid rgba(63,185,80,.3);}
-  .status-loss{background:rgba(248,81,73,.1);color:var(--red);border:1px solid rgba(248,81,73,.3);}
-  .status-warn{background:rgba(210,153,34,.1);color:var(--yellow);border:1px solid rgba(210,153,34,.3);}
-  .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-  .kpi{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 10px;text-align:center;}
-  .kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
-  .kpi-value{font-size:20px;font-weight:700;line-height:1.1;}
-  .kpi-sub{font-size:11px;color:var(--muted);margin-top:3px;}
-  .kv-green{color:var(--green);}.kv-red{color:var(--red);}.kv-yellow{color:var(--yellow);}.kv-blue{color:var(--accent);}
-  .wr-section{margin-top:18px;}
-  .wr-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;}
-  .wr-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
-  .wr-fill{height:100%;border-radius:4px;}
-  .fill-scalp{background:linear-gradient(90deg,#3B82F6,#60A5FA);}
-  .fill-swing{background:linear-gradient(90deg,#8B5CF6,#A78BFA);}
-  hr.divider{border:none;border-top:1px solid var(--border);margin:16px 0;}
-  .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
-  .config-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
-  .config-item:last-child{border-bottom:none;}
-  .config-key{color:var(--muted);}.config-val{font-weight:600;}
-  .full-width{margin-bottom:24px;}
-  .comp-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:22px;}
-  .comp-title{font-size:14px;font-weight:700;margin-bottom:16px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
-  table{width:100%;border-collapse:collapse;}
-  th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);}
-  th:not(:first-child){text-align:center;}
-  td{padding:10px 12px;border-bottom:1px solid rgba(33,38,45,.6);font-size:13px;}
-  td:not(:first-child){text-align:center;}
-  tr:last-child td{border-bottom:none;}
-  .metric-label{color:var(--muted);}.metric-good{color:var(--green);font-weight:600;}
-  .metric-bad{color:var(--red);font-weight:600;}.metric-warn{color:var(--yellow);font-weight:600;}
-  .metric-neutral{color:var(--text);font-weight:600;}
-  .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
-  .rule-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;}
-  .rule-title{font-size:13px;font-weight:700;margin-bottom:14px;}
-  .rule-item{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(33,38,45,.5);}
-  .rule-item:last-child{border-bottom:none;}
-  .rule-dot-on{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
-  .rule-dot-off{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;}
-  .rule-name{flex:1;}.rule-name-off{flex:1;color:var(--muted);}
-  .rule-cat{font-size:10px;padding:1px 6px;border-radius:10px;background:var(--border);color:var(--muted);}
-  .issues-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:24px;}
-  .issue-list{display:flex;flex-direction:column;gap:10px;}
-  .issue{display:flex;gap:12px;padding:12px;border-radius:8px;}
-  .issue-critical{background:rgba(248,81,73,.07);border-left:3px solid var(--red);}
-  .issue-warning{background:rgba(210,153,34,.07);border-left:3px solid var(--yellow);}
-  .issue-info{background:rgba(88,166,255,.07);border-left:3px solid var(--accent);}
-  .issue-icon{font-size:16px;margin-top:1px;flex-shrink:0;}
-  .issue-content{flex:1;}
-  .issue-title{font-weight:600;font-size:13px;margin-bottom:3px;}
-  .issue-desc{color:var(--muted);font-size:12px;line-height:1.5;}
-  .bot-tag{font-size:10px;padding:1px 6px;border-radius:10px;margin-left:6px;}
-  .tag-scalp{background:rgba(59,130,246,.2);color:#60A5FA;}
-  .tag-swing{background:rgba(139,92,246,.2);color:#A78BFA;}
-  .tag-both{background:rgba(33,38,45,.8);color:var(--muted);}
-  footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:40px;}
+:root{--bg:#0D1117;--panel:#161B22;--border:#21262D;--text:#E6EDF3;--muted:#8B949E;--accent:#58A6FF;--green:#3FB950;--red:#F85149;--yellow:#D29922;--purple:#A78BFA;--blue:#60A5FA;--orange:#FB8F44;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;}
+nav{background:var(--panel);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:24px;height:52px;position:sticky;top:0;z-index:100;}
+.nav-logo{font-weight:800;font-size:15px;color:var(--accent);letter-spacing:1px;text-decoration:none;}
+.nav-logo span{color:var(--muted);font-weight:400;}
+nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:4px 0;border-bottom:2px solid transparent;}
+nav a:hover,nav a.active{color:var(--text);border-bottom-color:var(--accent);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
+.v-pill{background:rgba(88,166,255,.15);color:var(--accent);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid rgba(88,166,255,.3);}
+main{max-width:1300px;margin:0 auto;padding:32px;}
+.page-header{margin-bottom:28px;}
+.page-header h1{font-size:22px;font-weight:700;margin-bottom:4px;}
+.page-header .meta{color:var(--muted);font-size:13px;}
+.health-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-top:10px;}
+.health-warn{background:rgba(210,153,34,.15);color:var(--yellow);border:1px solid rgba(210,153,34,.3);}
+.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
+.sc{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.sv{font-size:22px;font-weight:700;}
+.ss{font-size:11px;color:var(--muted);margin-top:3px;}
+.c-g{color:var(--green);}.c-r{color:var(--red);}.c-y{color:var(--yellow);}.c-b{color:var(--accent);}
+.bots-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.bot-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;}
+.bot-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.bdot{width:10px;height:10px;border-radius:50%;}
+.bdot-s{background:#3B82F6;}.bdot-w{background:#8B5CF6;}
+.bname{font-size:15px;font-weight:700;}
+.btype{font-size:11px;background:var(--border);color:var(--muted);padding:2px 8px;border-radius:20px;}
+.badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+.bg-loss{background:rgba(248,81,73,.1);color:var(--red);border:1px solid rgba(248,81,73,.3);}
+.bg-warn{background:rgba(210,153,34,.1);color:var(--yellow);border:1px solid rgba(210,153,34,.3);}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center;}
+.kl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
+.kv{font-size:18px;font-weight:700;}
+.ks{font-size:11px;color:var(--muted);margin-top:2px;}
+.wr-bar-wrap{margin-top:2px;}
+.wr-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.wr-track{height:7px;background:var(--border);border-radius:3px;overflow:hidden;}
+.wr-fill{height:100%;border-radius:3px;}
+.fill-s{background:linear-gradient(90deg,#3B82F6,#60A5FA);}
+.fill-w{background:linear-gradient(90deg,#8B5CF6,#A78BFA);}
+hr.div{border:none;border-top:1px solid var(--border);margin:12px 0;}
+.cfg{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.ci{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.ci:last-child{border-bottom:none;}
+.ck{color:var(--muted);}.cv{font-weight:600;}
+.targets-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
+.sec-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;}
+th:not(:first-child){text-align:center;}
+td{padding:9px 12px;border-bottom:1px solid rgba(33,38,45,.5);font-size:13px;}
+td:not(:first-child){text-align:center;font-weight:600;}
+tr:last-child td{border-bottom:none;}
+.tl{color:var(--muted);}.t-cur{color:var(--red);}.t-min{color:var(--yellow);}.t-good{color:var(--accent);}.t-exc{color:var(--green);}
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.prog-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.prog-name{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;}
+.prog-pct{font-size:11px;font-weight:600;}
+.prog-cur{font-size:20px;font-weight:700;}
+.prog-target{font-size:11px;color:var(--muted);}
+.prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:8px;}
+.prog-fill{height:100%;border-radius:4px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.rule-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.rule-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(33,38,45,.5);font-size:13px;}
+.rule-row:last-child{border-bottom:none;}
+.rule-rank{width:20px;font-size:11px;color:var(--muted);text-align:center;flex-shrink:0;}
+.rule-name-cell{flex:1;font-size:12px;}
+.rule-wr{width:52px;text-align:right;font-weight:700;}
+.rule-pnl{width:64px;text-align:right;font-size:11px;}
+.rule-bar-wrap{width:80px;flex-shrink:0;}
+.rule-bar-bg{height:5px;background:var(--border);border-radius:2px;overflow:hidden;}
+.rule-bar-fill{height:100%;border-radius:2px;}
+.score-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:24px;}
+.score-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.score-row:last-child{margin-bottom:0;}
+.score-band{width:80px;font-size:12px;font-weight:700;flex-shrink:0;}
+.score-track{flex:1;height:28px;background:var(--border);border-radius:6px;overflow:hidden;}
+.score-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:12px;font-weight:700;color:#fff;}
+.score-meta{width:140px;font-size:11px;color:var(--muted);flex-shrink:0;}
+.score-verdict{width:100px;font-size:11px;font-weight:600;flex-shrink:0;text-align:right;}
+.issues-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
+.issue{display:flex;gap:12px;padding:12px;border-radius:8px;margin-bottom:8px;}
+.issue:last-child{margin-bottom:0;}
+.iss-crit{background:rgba(248,81,73,.07);border-left:3px solid var(--red);}
+.iss-warn{background:rgba(210,153,34,.07);border-left:3px solid var(--yellow);}
+.iss-ok{background:rgba(63,185,80,.07);border-left:3px solid var(--green);}
+.iss-icon{font-size:15px;margin-top:1px;flex-shrink:0;}
+.iss-body{flex:1;}
+.iss-title{font-weight:600;font-size:13px;margin-bottom:3px;}
+.iss-desc{color:var(--muted);font-size:12px;line-height:1.5;}
+.tag{font-size:10px;padding:1px 6px;border-radius:10px;margin-left:5px;}
+.ts{background:rgba(59,130,246,.2);color:#60A5FA;}
+.tw{background:rgba(139,92,246,.2);color:#A78BFA;}
+.tb{background:rgba(33,38,45,.8);color:var(--muted);}
+.comp-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
+.tg{color:var(--green);font-weight:600;}.tr{color:var(--red);font-weight:600;}.ty{color:var(--yellow);font-weight:600;}.tn{color:var(--text);font-weight:600;}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}
 </style>
 </head>
 <body>
@@ -93,141 +117,148 @@
   <div class="nav-right"><div class="v-pill">v1 · Haziran 2026</div></div>
 </nav>
 <main>
-  <div class="page-header"><div><h1>v1 — Baseline Performans</h1><div class="meta">Orijinal konfigurasyon · 220 trade analizi · Haziran 2026</div></div></div>
-  <div class="top-grid">
-    <div class="bot-card">
-      <div class="bot-header"><div class="bot-dot dot-scalp"></div><div class="bot-name">CNS_Scalp_New</div><div class="bot-type">SCALP · 5x</div><div class="status-badge status-warn">KAR — ZAYIF</div></div>
-      <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value kv-yellow">37.3%</div><div class="kpi-sub">56W / 94L</div></div>
-        <div class="kpi"><div class="kpi-label">Profit Factor</div><div class="kpi-value kv-yellow">1.15x</div><div class="kpi-sub">min 1.5 hedef</div></div>
-        <div class="kpi"><div class="kpi-label">Net PnL</div><div class="kpi-value kv-green">+$244</div><div class="kpi-sub">150 trade</div></div>
-        <div class="kpi"><div class="kpi-label">Gercek R:R</div><div class="kpi-value kv-yellow">~1.9:1</div><div class="kpi-sub">hedef 3:1</div></div>
-        <div class="kpi"><div class="kpi-label">Aktif Kural</div><div class="kpi-value kv-blue">17/25</div><div class="kpi-sub">rules</div></div>
-      </div>
-      <div class="wr-section"><div class="wr-label"><span>Win Rate: 37.3%</span><span>Break-even: ~25%</span></div><div class="wr-bar"><div class="wr-fill fill-scalp" style="width:37.3%"></div></div></div>
-      <hr class="divider">
-      <div class="config-grid">
-        <div>
-          <div class="config-item"><span class="config-key">TP / SL</span><span class="config-val">30% / 10%</span></div>
-          <div class="config-item"><span class="config-key">Min Score</span><span class="config-val">+-9.5</span></div>
-          <div class="config-item"><span class="config-key">Sinyal</span><span class="config-val">Hammer + FR</span></div>
-        </div>
-        <div>
-          <div class="config-item"><span class="config-key">Trailing Stop</span><span class="config-val">3%</span></div>
-          <div class="config-item"><span class="config-key">Freshness</span><span class="config-val">15 dk</span></div>
-          <div class="config-item"><span class="config-key">Lev / Pos</span><span class="config-val">5x / 2%</span></div>
-        </div>
-      </div>
+<div class="page-header">
+  <h1>v1 — Baseline Performans Analizi</h1>
+  <div class="meta">Tum zamanlar · 335 trade · CNS_Scalp_New + CNS__SWING_New + diger botlar · Haziran 2026</div>
+  <div class="health-badge health-warn">GENEL SAGLIK: GELISTIRILEBILIR — Swing kritik zarar, Scalp marjinal kar</div>
+</div>
+<div class="strip">
+  <div class="sc"><div class="sl">Toplam Trade</div><div class="sv c-b">335</div><div class="ss">Tum botlar</div></div>
+  <div class="sc"><div class="sl">Genel Win Rate</div><div class="sv c-y">33.7%</div><div class="ss">113W / 222L</div></div>
+  <div class="sc"><div class="sl">Manuel WR</div><div class="sv c-g">57%</div><div class="ss">28 trade · Bot: 32%</div></div>
+  <div class="sc"><div class="sl">CNS Scalp PnL</div><div class="sv c-g">+$303</div><div class="ss">151 trade · 37.7% WR</div></div>
+  <div class="sc"><div class="sl">CNS Swing PnL</div><div class="sv c-r">-$222</div><div class="ss">70 trade · 32.9% WR</div></div>
+  <div class="sc"><div class="sl">Ana Kasa</div><div class="sv c-b">$60,407</div><div class="ss">+$407 (+0.68%)</div></div>
+</div>
+<div class="bots-grid">
+  <div class="bot-card">
+    <div class="bot-head"><div class="bdot bdot-s"></div><div class="bname">CNS_Scalp_New</div><div class="btype">SCALP · 5x</div><div class="badge bg-warn">KAR — ZAYIF</div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="kl">Win Rate</div><div class="kv c-y">37.7%</div><div class="ks">56W / 95L</div></div>
+      <div class="kpi"><div class="kl">Net PnL</div><div class="kv c-g">+$304</div><div class="ks">151 trade</div></div>
+      <div class="kpi"><div class="kl">Ort Sure</div><div class="kv c-b">1s42d</div><div class="ks">scalp uygun</div></div>
+      <div class="kpi"><div class="kl">Best Coin</div><div class="kv" style="font-size:13px;color:var(--green)">DRIFT</div><div class="ks">en kazandiran</div></div>
+      <div class="kpi"><div class="kl">Aktif Kural</div><div class="kv c-b">17/25</div><div class="ks">rules</div></div>
     </div>
-    <div class="bot-card">
-      <div class="bot-header"><div class="bot-dot dot-swing"></div><div class="bot-name">CNS__SWING_New</div><div class="bot-type">SWING · 5x</div><div class="status-badge status-loss">ZARAR</div></div>
-      <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-label">Win Rate</div><div class="kpi-value kv-red">32.9%</div><div class="kpi-sub">23W / 47L</div></div>
-        <div class="kpi"><div class="kpi-label">Profit Factor</div><div class="kpi-value kv-red">0.78x</div><div class="kpi-sub">1.0 alti = zarar</div></div>
-        <div class="kpi"><div class="kpi-label">Net PnL</div><div class="kpi-value kv-red">-$222</div><div class="kpi-sub">70 trade</div></div>
-        <div class="kpi"><div class="kpi-label">Gercek R:R</div><div class="kpi-value kv-red">~1.6:1</div><div class="kpi-sub">hedef 3.5:1</div></div>
-        <div class="kpi"><div class="kpi-label">Aktif Kural</div><div class="kpi-value kv-blue">22/25</div><div class="kpi-sub">rules</div></div>
+    <div class="wr-bar-wrap"><div class="wr-labels"><span>Win Rate: 37.7%</span><span style="color:var(--yellow)">Hedef: 45%+</span></div><div class="wr-track"><div class="wr-fill fill-s" style="width:37.7%"></div></div></div>
+    <hr class="div">
+    <div class="cfg">
+      <div>
+        <div class="ci"><span class="ck">TP / SL</span><span class="cv">30% / 10%</span></div>
+        <div class="ci"><span class="ck">Min Score</span><span class="cv" style="color:var(--yellow)">+-9.5</span></div>
+        <div class="ci"><span class="ck">Sinyal</span><span class="cv">Hammer + FR</span></div>
       </div>
-      <div class="wr-section"><div class="wr-label"><span>Win Rate: 32.9%</span><span>Break-even: ~22%</span></div><div class="wr-bar"><div class="wr-fill fill-swing" style="width:32.9%"></div></div></div>
-      <hr class="divider">
-      <div class="config-grid">
-        <div>
-          <div class="config-item"><span class="config-key">TP / SL</span><span class="config-val">70% / 20%</span></div>
-          <div class="config-item"><span class="config-key">Min Score</span><span class="config-val">+-5</span></div>
-          <div class="config-item"><span class="config-key">Sinyal</span><span class="config-val">Sniper Only</span></div>
-        </div>
-        <div>
-          <div class="config-item"><span class="config-key">Trailing Stop</span><span class="config-val" style="color:var(--red)">3% UYARI</span></div>
-          <div class="config-item"><span class="config-key">Freshness</span><span class="config-val">120 dk</span></div>
-          <div class="config-item"><span class="config-key">Lev / Pos</span><span class="config-val">5x / 2%</span></div>
-        </div>
+      <div>
+        <div class="ci"><span class="ck">Trailing Stop</span><span class="cv">3%</span></div>
+        <div class="ci"><span class="ck">Freshness</span><span class="cv">15 dk</span></div>
+        <div class="ci"><span class="ck">Kaldirac</span><span class="cv">5x / 2%</span></div>
       </div>
     </div>
   </div>
-  <div class="comp-card full-width">
-    <div class="comp-title">Karsilastirma</div>
-    <table>
-      <thead><tr><th>Metrik</th><th>CNS_Scalp_New</th><th>CNS__SWING_New</th><th>Degerlendirme</th></tr></thead>
-      <tbody>
-        <tr><td class="metric-label">Toplam Trade</td><td class="metric-neutral">150</td><td class="metric-neutral">70</td><td class="metric-neutral">—</td></tr>
-        <tr><td class="metric-label">Win Rate</td><td class="metric-warn">37.3%</td><td class="metric-bad">32.9%</td><td class="metric-warn">Ikisi de gelistirilebilir</td></tr>
-        <tr><td class="metric-label">Profit Factor</td><td class="metric-warn">1.15x</td><td class="metric-bad">0.78x</td><td class="metric-bad">Swing kritik</td></tr>
-        <tr><td class="metric-label">Net PnL</td><td class="metric-good">+$243.90</td><td class="metric-bad">-$221.98</td><td class="metric-warn">Birlesik: +$21.92</td></tr>
-        <tr><td class="metric-label">Teorik R:R</td><td class="metric-neutral">3.0:1</td><td class="metric-neutral">3.5:1</td><td class="metric-neutral">Hedef iyi</td></tr>
-        <tr><td class="metric-label">Gercek R:R</td><td class="metric-warn">~1.9:1</td><td class="metric-bad">~1.6:1</td><td class="metric-bad">Hedeflerin cok altinda</td></tr>
-        <tr><td class="metric-label">Trailing Stop</td><td class="metric-warn">3% (uygun)</td><td class="metric-bad">3% (cok dar!)</td><td class="metric-bad">Swing TP gormuyor</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="rules-grid">
-    <div class="rule-card">
-      <div class="rule-title" style="color:#60A5FA">CNS_Scalp_New — Aktif Kurallar (17/25)</div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_01: Extreme RSI + StochRSI</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_02: H1 RSI Trend</div><div class="rule-cat">TREND</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_03: 5m RSI Confirmation</div><div class="rule-cat">CONFIRM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_04: StochRSI Extreme</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_05: Volume Spike</div><div class="rule-cat">VOLUME</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_06: TF Divergence</div><div class="rule-cat">DIVERGE</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_07: Multi-TF Alignment</div><div class="rule-cat">TREND</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_08: All RSI Extreme</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_09: Pump/Dump Detection</div><div class="rule-cat">VOLATIL</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_10: FR Bucket</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_11: Open Interest</div><div class="rule-cat">SNTMNT</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_12: Anti-Chase Penalty</div><div class="rule-cat">RISK</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_13: Conviction Bonus</div><div class="rule-cat">META</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_14: RSI Div+NW+WT</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_15: FR Squeeze Radar</div><div class="rule-cat">SNTMNT</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_16: FR Settlement</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_17: Weekend Bonus</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_18: FR Extreme Guard</div><div class="rule-cat">RISK</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_19: RSI Direction Filter</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_20: Boost Value Filter</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_21: UT Bot 5m</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_22: RSI Drop Daily</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_23: EMA 5/9 Cross 5m</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_24: EMA 5/9 Cross 15m</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_25: FR Squeeze Setup</div><div class="rule-cat">SNTMNT</div></div>
+  <div class="bot-card">
+    <div class="bot-head"><div class="bdot bdot-w"></div><div class="bname">CNS__SWING_New</div><div class="btype">SWING · 5x</div><div class="badge bg-loss">KRITIK ZARAR</div></div>
+    <div class="kpis">
+      <div class="kpi"><div class="kl">Win Rate</div><div class="kv c-r">32.9%</div><div class="ks">23W / 47L</div></div>
+      <div class="kpi"><div class="kl">Net PnL</div><div class="kv c-r">-$222</div><div class="ks">70 trade</div></div>
+      <div class="kpi"><div class="kl">Ort Sure</div><div class="kv c-b">7s24d</div><div class="ks">swing normal</div></div>
+      <div class="kpi"><div class="kl">Best Coin</div><div class="kv" style="font-size:13px;color:var(--green)">XLM</div><div class="ks">en kazandiran</div></div>
+      <div class="kpi"><div class="kl">Aktif Kural</div><div class="kv c-b">22/25</div><div class="ks">rules</div></div>
     </div>
-    <div class="rule-card">
-      <div class="rule-title" style="color:#A78BFA">CNS__SWING_New — Aktif Kurallar (22/25)</div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_01: Extreme RSI + StochRSI</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_02: H1 RSI Trend</div><div class="rule-cat">TREND</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_03: 5m RSI Confirmation</div><div class="rule-cat">CONFIRM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_04: StochRSI Extreme</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_05: Volume Spike</div><div class="rule-cat">VOLUME</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_06: TF Divergence</div><div class="rule-cat">DIVERGE</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_07: Multi-TF Alignment</div><div class="rule-cat">TREND</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_08: All RSI Extreme</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_09: Pump/Dump Detection</div><div class="rule-cat">VOLATIL</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_10: FR Bucket</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_11: Open Interest</div><div class="rule-cat">SNTMNT</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_12: Anti-Chase Penalty</div><div class="rule-cat">RISK</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_13: Conviction Bonus</div><div class="rule-cat">META</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_14: RSI Div+NW+WT - Swing</div><div class="rule-cat">ADVANCED</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_15: FR Squeeze Radar</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_16: FR Settlement</div><div class="rule-cat">SNTMNT</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_17: Weekend Bonus</div><div class="rule-cat">RISK</div></div>
-      <div class="rule-item"><div class="rule-dot-off"></div><div class="rule-name-off">Rule_18: FR Extreme Guard</div><div class="rule-cat">OFF</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_19: RSI Direction Filter</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_20: Boost Value Filter</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_21: UT Bot 5m</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_22: RSI Drop Daily - Swing</div><div class="rule-cat">MOMENTUM</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_23: EMA 5/9 Cross 5m</div><div class="rule-cat">TREND</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_24: EMA 5/9 Cross 15m</div><div class="rule-cat">TREND</div></div>
-      <div class="rule-item"><div class="rule-dot-on"></div><div class="rule-name">Rule_25: FR Squeeze Setup</div><div class="rule-cat">SNTMNT</div></div>
+    <div class="wr-bar-wrap"><div class="wr-labels"><span>Win Rate: 32.9%</span><span style="color:var(--red)">Break-even: ~22% — PF &lt; 1.0</span></div><div class="wr-track"><div class="wr-fill fill-w" style="width:32.9%"></div></div></div>
+    <hr class="div">
+    <div class="cfg">
+      <div>
+        <div class="ci"><span class="ck">TP / SL</span><span class="cv">70% / 20%</span></div>
+        <div class="ci"><span class="ck">Min Score</span><span class="cv" style="color:var(--red)">+-5 KRITIK</span></div>
+        <div class="ci"><span class="ck">Sinyal</span><span class="cv" style="color:var(--yellow)">Sniper only</span></div>
+      </div>
+      <div>
+        <div class="ci"><span class="ck">Trailing Stop</span><span class="cv" style="color:var(--red)">3% KRITIK</span></div>
+        <div class="ci"><span class="ck">Freshness</span><span class="cv">120 dk</span></div>
+        <div class="ci"><span class="ck">Kaldirac</span><span class="cv">5x / 2%</span></div>
+      </div>
     </div>
   </div>
-  <div class="issues-card">
-    <div class="comp-title">Tespit Edilen Sorunlar</div>
-    <div class="issue-list">
-      <div class="issue issue-critical"><div class="issue-icon">!</div><div class="issue-content"><div class="issue-title">Swing Trailing Stop cok dar (3%) — TP hedefi hic vurulmuyor <span class="bot-tag tag-swing">SWING</span></div><div class="issue-desc">TP %70, Trailing Stop %3. Teorik R:R 3.5:1 iken gercek R:R ~1.6:1. Trailing Stop: 3% → 10-15%</div></div></div>
-      <div class="issue issue-critical"><div class="issue-icon">!</div><div class="issue-content"><div class="issue-title">Swing Min Score cok dusuk (+-5) — gurultulu sinyaller giriyor <span class="bot-tag tag-swing">SWING</span></div><div class="issue-desc">Score 5 ile 70 trade'in 47'si (%67) zarar. Min score +-7-8'e cikmak kaliteyi arttirir.</div></div></div>
-      <div class="issue issue-warning"><div class="issue-icon">?</div><div class="issue-content"><div class="issue-title">Scalp gercek R:R teorik hedefin altinda (~1.9:1 vs 3:1) <span class="bot-tag tag-scalp">SCALP</span></div><div class="issue-desc">TP %30 / SL %10 = 3:1 teorik, ama gercekte ~1.9:1.</div></div></div>
-      <div class="issue issue-warning"><div class="issue-icon">?</div><div class="issue-content"><div class="issue-title">Swing sinyal kaynagi yalnizca Sniper — firsat kisitli <span class="bot-tag tag-swing">SWING</span></div><div class="issue-desc">Hammer + Sniper kombinasyonu onerilir. Alert Freshness: 120 → 60-90 dk</div></div></div>
-      <div class="issue issue-info"><div class="issue-icon">i</div><div class="issue-content"><div class="issue-title">Birlesik toplam PnL: yalnizca +$21.92 <span class="bot-tag tag-both">IKISI</span></div><div class="issue-desc">Scalp +$244 kazanirken Swing -$222 kaybediyor. Swing duzeltilmedigi surece scalp karini sifirliyor.</div></div></div>
-    </div>
+</div>
+<div class="targets-card">
+  <div class="sec-title">Profesyonel Algo Trading Hedefleri — Mevcut Durum vs Standartlar</div>
+  <table>
+    <thead><tr><th>Metrik</th><th style="color:var(--red)">v1 Mevcut</th><th style="color:var(--yellow)">Minimum (canliya gecis)</th><th style="color:var(--accent)">Iyi (funded account)</th><th style="color:var(--green)">Mukemmel (kurumsal)</th></tr></thead>
+    <tbody>
+      <tr><td class="tl">Scalp Win Rate</td><td class="t-cur">37.7%</td><td class="t-min">45%</td><td class="t-good">52%</td><td class="t-exc">60%+</td></tr>
+      <tr><td class="tl">Swing Win Rate</td><td class="t-cur">32.9%</td><td class="t-min">40%</td><td class="t-good">48%</td><td class="t-exc">55%+</td></tr>
+      <tr><td class="tl">Scalp Profit Factor</td><td class="t-cur">~1.15</td><td class="t-min">1.3</td><td class="t-good">1.7</td><td class="t-exc">2.5+</td></tr>
+      <tr><td class="tl">Swing Profit Factor</td><td class="t-cur">0.78</td><td class="t-min">1.3</td><td class="t-good">1.7</td><td class="t-exc">2.5+</td></tr>
+      <tr><td class="tl">Max Drawdown</td><td class="t-cur" style="color:var(--green)">~0% (izleniyor)</td><td class="t-min">&lt;15%</td><td class="t-good">&lt;10%</td><td class="t-exc">&lt;5%</td></tr>
+      <tr><td class="tl">Gercek R:R (Scalp)</td><td class="t-cur">~1.9:1</td><td class="t-min">1.5:1</td><td class="t-good">2.5:1</td><td class="t-exc">3.5:1+</td></tr>
+      <tr><td class="tl">Gercek R:R (Swing)</td><td class="t-cur">~1.6:1</td><td class="t-min">2.0:1</td><td class="t-good">3.0:1</td><td class="t-exc">4.0:1+</td></tr>
+      <tr><td class="tl">Aylik Getiri</td><td class="t-cur">Izleniyor</td><td class="t-min">%2</td><td class="t-good">%5</td><td class="t-exc">%10+</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="prog-grid">
+  <div class="prog-card"><div class="prog-header"><span class="prog-name">Scalp Win Rate</span><span class="prog-pct c-y">37.7% / 45%</span></div><div class="prog-cur c-y">37.7%</div><div class="prog-target">Hedef: 45% (canli min)</div><div class="prog-track"><div class="prog-fill" style="width:83.8%;background:linear-gradient(90deg,#D29922,#F0A500)"></div></div></div>
+  <div class="prog-card"><div class="prog-header"><span class="prog-name">Swing Win Rate</span><span class="prog-pct c-r">32.9% / 40%</span></div><div class="prog-cur c-r">32.9%</div><div class="prog-target">Hedef: 40% (canli min)</div><div class="prog-track"><div class="prog-fill" style="width:82.3%;background:linear-gradient(90deg,#F85149,#FF6B6B)"></div></div></div>
+  <div class="prog-card"><div class="prog-header"><span class="prog-name">Scalp Profit Factor</span><span class="prog-pct c-y">1.15 / 1.7</span></div><div class="prog-cur c-y">1.15</div><div class="prog-target">Hedef: 1.7 (funded)</div><div class="prog-track"><div class="prog-fill" style="width:47.9%;background:linear-gradient(90deg,#D29922,#F0A500)"></div></div></div>
+  <div class="prog-card"><div class="prog-header"><span class="prog-name">Swing Profit Factor</span><span class="prog-pct c-r">0.78 / 1.7</span></div><div class="prog-cur c-r">0.78</div><div class="prog-target">Hedef: 1.7 (funded)</div><div class="prog-track"><div class="prog-fill" style="width:25.9%;background:linear-gradient(90deg,#F85149,#FF6B6B)"></div></div></div>
+</div>
+<div class="two-col">
+  <div class="rule-card">
+    <div class="sec-title">En Iyi 7 Kural — Tum Zamanlar</div>
+    <div class="rule-row"><div class="rule-rank">1</div><div class="rule-name-cell">FR Bucket (Data-Driven)</div><div class="rule-wr" style="color:var(--green)">45.3%</div><div class="rule-pnl" style="color:var(--green)">+$20.85</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:90.6%;background:var(--green)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank">2</div><div class="rule-name-cell">Rule_09 Pump/Dump Detection</div><div class="rule-wr" style="color:var(--green)">44.7%</div><div class="rule-pnl" style="color:var(--green)">+$8.99</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:89.4%;background:var(--green)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank">3</div><div class="rule-name-cell">Rule_22 RSI Drop Daily</div><div class="rule-wr" style="color:var(--green)">43.9%</div><div class="rule-pnl" style="color:var(--green)">+$2.31</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:87.8%;background:var(--green)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank">4</div><div class="rule-name-cell">All RSI Extreme</div><div class="rule-wr" style="color:var(--green)">42.3%</div><div class="rule-pnl" style="color:var(--muted)">+$0.23</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:84.6%;background:var(--green)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank">5</div><div class="rule-name-cell">Weekend Signal Bonus</div><div class="rule-wr" style="color:var(--green)">41.2%</div><div class="rule-pnl" style="color:var(--green)">+$8.84</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:82.4%;background:var(--green)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank">6</div><div class="rule-name-cell">Rule_12 Anti-Chase Penalty</div><div class="rule-wr" style="color:var(--green)">40.5%</div><div class="rule-pnl" style="color:var(--green)">+$2.81</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:81%;background:var(--green)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank">7</div><div class="rule-name-cell">FR Settlement Timing</div><div class="rule-wr" style="color:var(--green)">40.2%</div><div class="rule-pnl" style="color:var(--green)">+$7.18</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:80.4%;background:var(--green)"></div></div></div></div>
   </div>
+  <div class="rule-card">
+    <div class="sec-title">En Kotu 7 Kural — Kapatilabilir</div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--red)">!</div><div class="rule-name-cell" style="color:var(--red)">Rule_06 TF Divergence</div><div class="rule-wr" style="color:var(--red)">8.3%</div><div class="rule-pnl" style="color:var(--red)">-$17.82</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:8.3%;background:var(--red)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--red)">!</div><div class="rule-name-cell" style="color:var(--red)">Rule_14 RSI Div+NW+WT</div><div class="rule-wr" style="color:var(--red)">23.5%</div><div class="rule-pnl" style="color:var(--red)">-$16.34</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:23.5%;background:var(--red)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--yellow)">v</div><div class="rule-name-cell">Rule_25 FR Squeeze Setup</div><div class="rule-wr" style="color:var(--yellow)">26.1%</div><div class="rule-pnl" style="color:var(--red)">-$0.15</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:26.1%;background:var(--yellow)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--yellow)">v</div><div class="rule-name-cell">Rule_04 StochRSI Extreme</div><div class="rule-wr" style="color:var(--yellow)">28.6%</div><div class="rule-pnl" style="color:var(--red)">-$2.81</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:28.6%;background:var(--yellow)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--yellow)">v</div><div class="rule-name-cell">Rule_20 Boost Value Filter</div><div class="rule-wr" style="color:var(--yellow)">30.7%</div><div class="rule-pnl" style="color:var(--red)">-$5.19</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:30.7%;background:var(--yellow)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--yellow)">v</div><div class="rule-name-cell">RSI Direction Filter</div><div class="rule-wr" style="color:var(--yellow)">32.7%</div><div class="rule-pnl" style="color:var(--red)">-$5.68</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:32.7%;background:var(--yellow)"></div></div></div></div>
+    <div class="rule-row"><div class="rule-rank" style="color:var(--yellow)">v</div><div class="rule-name-cell">Rule_01 Extreme RSI+StochRSI</div><div class="rule-wr" style="color:var(--yellow)">32.4%</div><div class="rule-pnl" style="color:var(--red)">-$6.00</div><div class="rule-bar-wrap"><div class="rule-bar-bg"><div class="rule-bar-fill" style="width:32.4%;background:var(--yellow)"></div></div></div></div>
+  </div>
+</div>
+<div class="score-card">
+  <div class="sec-title">Skor Bandi Analizi — Hangi Score'da Girmeye Deger?</div>
+  <div class="score-row"><div class="score-band" style="color:var(--muted)">+5..+6</div><div class="score-track"><div class="score-fill" style="width:5%;background:#333;color:var(--muted)">—</div></div><div class="score-meta">Swing giriyor, veri yok</div><div class="score-verdict" style="color:var(--red)">GIRME</div></div>
+  <div class="score-row"><div class="score-band" style="color:var(--yellow)">+7..+9</div><div class="score-track"><div class="score-fill" style="width:43.8%;background:linear-gradient(90deg,#D29922,#F0A500)">43.8% WR · 16 trade</div></div><div class="score-meta">Ort PnL: +$9.72</div><div class="score-verdict" style="color:var(--yellow)">ZAYIF</div></div>
+  <div class="score-row"><div class="score-band" style="color:var(--green)">+10..+12</div><div class="score-track"><div class="score-fill" style="width:71.4%;background:linear-gradient(90deg,#3FB950,#56D364)">71.4% WR · 7 trade</div></div><div class="score-meta">Ort PnL: +$21.10</div><div class="score-verdict" style="color:var(--green)">ALTIN BOLGE</div></div>
+  <div class="score-row"><div class="score-band" style="color:var(--green)">+16+</div><div class="score-track"><div class="score-fill" style="width:100%;background:linear-gradient(90deg,#3FB950,#56D364)">100% WR · 1 trade</div></div><div class="score-meta">Ort PnL: +$13.49</div><div class="score-verdict" style="color:var(--green)">MUKEMMEL</div></div>
+  <div style="margin-top:12px;padding:10px 14px;background:rgba(88,166,255,.08);border-radius:8px;border-left:3px solid var(--accent);font-size:12px;color:var(--muted);">
+    Sonuc: Min Score +10'un altinda acilan pozisyonlar sistematik zarar. Scalp min score 9.5 sinirda. <b style="color:var(--yellow)">Swing min score 5 = istatistiksel felaket.</b> Her iki bot icin min score 10'a cikarilmali.
+  </div>
+</div>
+<div class="issues-card">
+  <div class="sec-title">Tespit Edilen Sorunlar — Oncelik Sirasıyla</div>
+  <div class="issue iss-crit"><div class="iss-icon">!</div><div class="iss-body"><div class="iss-title">Swing Trailing Stop 3% — TP 70% hedefi hic vurulmuyor <span class="tag tw">SWING</span></div><div class="iss-desc">TP %70, Trailing Stop %3. Kazancli pozisyon %3 geri cekilince kapaniyor. Teorik R:R 3.5:1, gercek ~1.6:1. Duzeltme: Trailing Stop &gt; %10</div></div></div>
+  <div class="issue iss-crit"><div class="iss-icon">!</div><div class="iss-body"><div class="iss-title">Swing Min Score +-5 — Skor bandi verisinde +10-12 = 71.4% WR, +5-9 = zarar <span class="tag tw">SWING</span></div><div class="iss-desc">Tum swing zararlari dusuk skor bolgesinde. Duzeltme: Min Score → +-10</div></div></div>
+  <div class="issue iss-crit"><div class="iss-icon">!</div><div class="iss-body"><div class="iss-title">Rule_06 TF Divergence — 8.3% Win Rate, en kotu kural <span class="tag tb">HER IKISI</span></div><div class="iss-desc">12 tetiklemede 1 kazanc, -$17.82 ortalama PnL. Duzeltme: Kapat</div></div></div>
+  <div class="issue iss-warn"><div class="iss-icon">?</div><div class="iss-body"><div class="iss-title">Rule_14 RSI Div+NW+WT — 23.5% WR, Swing'de aktif <span class="tag tw">SWING</span></div><div class="iss-desc">Scalp'te zaten kapali. Swing'de de kapat.</div></div></div>
+  <div class="issue iss-warn"><div class="iss-icon">!</div><div class="iss-body"><div class="iss-title">FR Bucket (Rule_10) kapali — ama en yuksek WR'li kural: 45.3% <span class="tag tb">HER IKISI</span></div><div class="iss-desc">75 tetiklemede 45.3% WR, +$20.85 ort PnL. Ac ve test et.</div></div></div>
+  <div class="issue iss-ok"><div class="iss-icon">V</div><div class="iss-body"><div class="iss-title">Manuel trading guclu: 57% WR vs Bot 32% <span class="tag tb">MANUEL</span></div><div class="iss-desc">Bot optimizasyonunun hedefi bu seviyeye yaklasmak.</div></div></div>
+</div>
+<div class="comp-card">
+  <div class="sec-title">Bot Karsilastirma — Tum Zamanlar</div>
+  <table>
+    <thead><tr><th>Metrik</th><th>CNS_Scalp_New</th><th>CNS__SWING_New</th><th>Hedef (v4)</th></tr></thead>
+    <tbody>
+      <tr><td class="tl">Toplam Trade</td><td class="tn">151</td><td class="tn">70</td><td class="tn">—</td></tr>
+      <tr><td class="tl">Win Rate</td><td class="ty">37.7%</td><td class="tr">32.9%</td><td class="tg">50%+</td></tr>
+      <tr><td class="tl">Net PnL</td><td class="tg">+$303.68</td><td class="tr">-$221.96</td><td class="tg">+$1000+</td></tr>
+      <tr><td class="tl">Ort Islem Suresi</td><td class="tn">1s 42dk</td><td class="tn">7s 24dk</td><td class="tn">—</td></tr>
+      <tr><td class="tl">Min Score</td><td class="ty">+-9.5</td><td class="tr">+-5</td><td class="tg">+-10</td></tr>
+      <tr><td class="tl">Trailing Stop</td><td class="tn">3%</td><td class="tr">3% KRITIK</td><td class="tg">Swing: 10%</td></tr>
+      <tr><td class="tl">Aktif Kural</td><td class="tn">17/25</td><td class="tn">22/25</td><td class="tn">Optimize edilecek</td></tr>
+    </tbody>
+  </table>
+</div>
 </main>
-<footer>SISTEM-1 · v1 Baseline · 150 scalp + 70 swing trade · Haziran 2026</footer>
+<footer>SISTEM-1 · v1 Baseline · 335 trade (tum zamanlar) · Haziran 2026 · cansuben.github.io/algobot-tracker</footer>
 </body>
 </html>
