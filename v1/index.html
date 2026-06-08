@@ -260,9 +260,16 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
 </div>
 <div class="issues-card">
   <div class="sec-title">Tespit Edilen Sorunlar — Oncelik Sirasıyla</div>
-  <div class="issue iss-done"><div class="iss-icon">&#x2705;</div><div class="iss-body"><div class="iss-title"><del>FR Bucket (Rule_10) kapali</del><span class="yapildi-badge">&#x2713; YAPILDI — Her iki botta acildi</span> — ama en yuksek WR'li kural: 45.3% <span class="tag tb">HER IKISI</span></div><div class="iss-desc">75 tetiklemede 45.3% WR, +$20.85 ort PnL. Ac ve test et.</div></div></div>
-  <div class="issue iss-ok"><div class="iss-icon">V</div><div class="iss-body"><div class="iss-title">Manuel trading guclu: 57% WR vs Bot 32% <span class="tag tb">MANUEL</span></div><div class="iss-desc">Bot optimizasyonunun hedefi bu seviyeye yaklasmak.</div></div></div>
+  <div class="issue-list">
+    <div class="issue iss-done"><div class="iss-icon">&#x2705;</div><div class="iss-body"><div class="iss-title"><del>Swing Trailing Stop 3% — TP 70% hedefi hic vurulmuyor</del><span class="yapildi-badge">&#x2713; YAPILDI — %10'a yukseltildi</span><span class="tag tw">SWING</span></div><div class="iss-desc">TP %70, Trailing Stop %3. Kazancli pozisyon %3 geri cekilince kapaniyor. Teorik R:R 3.5:1, gercek ~1.6:1. Duzeltme uygulandı: %10.</div></div></div>
+    <div class="issue iss-done"><div class="iss-icon">&#x2705;</div><div class="iss-body"><div class="iss-title"><del>Swing Min Score +-5 — Skor bandi verisinde +10-12 = 71.4% WR, +5-9 = zarar</del><span class="yapildi-badge">&#x2713; YAPILDI — +-10'a yukseltildi</span><span class="tag tw">SWING</span></div><div class="iss-desc">Tum swing zararlari dusuk skor bolgesinde. Skor bandi analizi: +10-12 = 71.4% WR. Duzeltme uygulandı: +-10.</div></div></div>
+    <div class="issue iss-done"><div class="iss-icon">&#x2705;</div><div class="iss-body"><div class="iss-title"><del>Rule_06 TF Divergence — 8.3% Win Rate, en kotu kural</del><span class="yapildi-badge">&#x2713; YAPILDI — Kapatildi</span><span class="tag tb">HER IKISI</span></div><div class="iss-desc">12 tetiklemede 1 kazanc, -$17.82 ortalama PnL. Her iki botta kapatildi.</div></div></div>
+    <div class="issue iss-done"><div class="iss-icon">&#x2705;</div><div class="iss-body"><div class="iss-title"><del>Rule_14 RSI Div+NW+WT — 23.5% WR, Swing'de aktifti</del><span class="yapildi-badge">&#x2713; YAPILDI — Swing'de kapatildi</span><span class="tag tw">SWING</span></div><div class="iss-desc">Scalp'te zaten kapali. 34 tetiklemede sistematik zarar. Swing'de de kapatildi.</div></div></div>
+    <div class="issue iss-done"><div class="iss-icon">&#x2705;</div><div class="iss-body"><div class="iss-title"><del>FR Bucket (Rule_10) kapali — ama en yuksek WR'li kural: 45.3%</del><span class="yapildi-badge">&#x2713; YAPILDI — Her iki botta acildi</span><span class="tag tb">HER IKISI</span></div><div class="iss-desc">75 tetiklemede 45.3% WR, +$20.85 ort PnL. Her iki botta aktif edildi.</div></div></div>
+    <div class="issue iss-ok"><div class="iss-icon">V</div><div class="iss-body"><div class="iss-title">Manuel trading guclu: 57% WR vs Bot 32%<span class="tag tb">MANUEL</span></div><div class="iss-desc">Bot optimizasyonunun hedefi bu seviyeye yaklasmak.</div></div></div>
+  </div>
 </div>
+
 <div class="comp-card">
   <div class="sec-title">Bot Karsilastirma — Tum Zamanlar</div>
   <table>
