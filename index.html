@@ -234,7 +234,7 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
     <div class="cfg">
       <div>
         <div class="ci"><span class="ck">TP / SL</span><span class="cv">70% / 20%</span></div>
-        <div class="ci"><span class="ck">Trailing Stop</span><span class="cv" style="color:var(--red)">3% ⚠️ V1'de 10% önerildi!</span></div>
+        <div class="ci"><span class="ck">Trailing Stop</span><span class="cv" style="color:var(--green)">10% ✓ Güncellendi</span></div>
         <div class="ci"><span class="ck">Kayıp (Worst)</span><span class="cv" style="color:var(--red)">-$41.44</span></div>
       </div>
       <div>
@@ -269,17 +269,17 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
 </div>
 <div class="opts-card">
   <div class="sec-title">V1 Optimizasyonlarının Sonuçları — Durum Analizi</div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Swing Min Score: +-5 → +-10<span class="tag tw">SWING</span></div><div class="opt-desc">V1'de önerildi ve uygulandı. Sonuç: Swing sinyallerinin WR'ı 58%'e yükseldi. Ancak bot hâlâ scalp sinyalleri üretiyor (50 trade, %20 WR).</div><div class="opt-result res-ok">Etkili — Swing kalitesi arttı.</div></div></div>
-  <div class="opt-row opt-crit"><div class="opt-icon">⚠️</div><div class="opt-body"><div class="opt-title">Swing Trailing Stop: 3% → 10%<span class="tag tw">SWING</span> — Config'de hâlâ 3% görünüyor!</div><div class="opt-desc">V1'de "✓ YAPILDI" işaretlendi ama config TRAIL: 3% gösteriyor. Kritik tutarsızlık. Best trade +$138.28 elde edildi — trailing 10% olsaydı daha büyük olabilirdi.</div><div class="opt-result res-crit">Doğrulama gerekli — Config'i kontrol et ve 10%'a yükselt.</div></div></div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Rule_06 TF Divergence kapatıldı<span class="tag tb">HER İKİSİ</span></div><div class="opt-desc">V1'de 8.3% WR, -$17.82 ortalama PnL ile en kötü kuraldı. Her iki botta kapatıldı.</div><div class="opt-result res-ok">Uygulandı — Beklenen zarar önlendi.</div></div></div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Rule_14 RSI Div+NW+WT — Swing'de kapatıldı<span class="tag tw">SWING</span></div><div class="opt-desc">V1'de 23.5% WR ile sistematik zarar üretiyordu. Swing PF artışına (0.78 → 2.28) katkıda bulundu.</div><div class="opt-result res-ok">Uygulandı — Swing PF artışına katkı.</div></div></div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">FR Bucket (Rule_10) — Her iki botta açıldı<span class="tag tb">HER İKİSİ</span></div><div class="opt-desc">V1'de kapalıydı ama 45.3% WR ile en yüksek performanslı kuraldı. Açılması PF artışlarına katkıda bulundu.</div><div class="opt-result res-ok">Uygulandı — PF iyileşmesine katkı.</div></div></div>
+  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Swing Min Score: +-5 → +-10<span class="tag tw">SWING</span></div><div class="opt-desc">V1'de önerildi ve uygulandı. Sonuç: Swing sinyallerinin WR'ı 58%'e yükseldi.</div><div class="opt-result res-ok">Etkili — Swing kalitesi arttı.</div></div></div>
+  <div class="opt-row opt-crit"><div class="opt-icon">⚠️</div><div class="opt-body"><div class="opt-title">Swing Trailing Stop: 3% → 10%<span class="tag tw">SWING</span> — Config'de hâlâ 3% görünüyordu!</div><div class="opt-desc">V1'de "✓ YAPILDI" işaretlendi ama config TRAIL: 3% gösteriyordu. V2 sürecinde tespit edildi ve düzeltildi.</div><div class="opt-result res-crit">V2'de tespit edildi — Düzeltildi ✓</div></div></div>
+  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Rule_06 TF Divergence kapatıldı<span class="tag tb">HER İKİSİ</span></div><div class="opt-desc">V1'de 8.3% WR, -$17.82 ortalama PnL ile en kötü kuraldı. Her iki botta kapatıldı.</div><div class="opt-result res-ok">Uygulandı.</div></div></div>
+  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Rule_14 RSI Div+NW+WT — Swing'de kapatıldı<span class="tag tw">SWING</span></div><div class="opt-desc">V1'de 23.5% WR ile sistematik zarar üretiyordu. Swing PF artışına (0.78 → 2.28) katkıda bulundu.</div><div class="opt-result res-ok">Uygulandı.</div></div></div>
+  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">FR Bucket (Rule_10) — Her iki botta açıldı<span class="tag tb">HER İKİSİ</span></div><div class="opt-desc">V1'de kapalıydı ama 45.3% WR ile en yüksek performanslı kuraldı.</div><div class="opt-result res-ok">Uygulandı.</div></div></div>
 </div>
 <div class="issues-card">
   <div class="sec-title">V3 için Tespit Edilen Sorunlar — Öncelik Sırasıyla</div>
-  <div class="issue iss-crit"><div class="iss-icon">🔴</div><div class="iss-body"><div class="iss-title">Swing Trailing Stop hâlâ 3% — %10'a yükseltilmeli<span class="tag tw">SWING</span></div><div class="iss-desc">Config'de TRAIL: 3% görünüyor. V1'de "%10'a yükseltildi" denmişti ama uygulanmamış. TP %70 hedefiyle trailing %3'te kalmak tüm büyük kazançları öldürüyor. Bu tek değişiklik swing PnL'ini olumlu yapabilir.</div></div></div>
-  <div class="issue iss-crit"><div class="iss-icon">🔴</div><div class="iss-body"><div class="iss-title">Swing bot 73% scalp sinyali üretiyor — Filtre eklenmeli<span class="tag tw">SWING</span></div><div class="iss-desc">CNS__SWING_New: 69 trade'in 50'si scalp sinyali, %20 WR ile zarar. Sadece 12 gerçek swing sinyali var, %58 WR. Scalp sinyalleri filtrelenirse toplam WR 29% → ~50%'ye çıkabilir.</div></div></div>
-  <div class="issue iss-warn"><div class="iss-icon">🟡</div><div class="iss-body"><div class="iss-title">Fee yükü kritik — Scalp max pozisyon azaltılmalı<span class="tag ts">SCALP</span></div><div class="iss-desc">Scalp: $84.56 fee, -$91.81 PnL. Fee olmasa bot neredeyse breakeven. Max POS 3→2'ye düşürmek fee'yi ~%33 azaltır.</div></div></div>
+  <div class="issue iss-done"><div class="iss-icon">✅</div><div class="iss-body"><div class="iss-title"><del>Swing Trailing Stop hâlâ 3% — %10'a yükseltilmeli</del><span class="yapildi-badge">✓ YAPILDI — %10'a yükseltildi</span><span class="tag tw">SWING</span></div><div class="iss-desc">Config güncellendi. TRAIL: 3% → 10%. TP %70 hedefine ulaşma ihtimali artık çok daha yüksek.</div></div></div>
+  <div class="issue iss-done"><div class="iss-icon">✅</div><div class="iss-body"><div class="iss-title"><del>Swing bot 73% scalp sinyali üretiyor — Filtre eklenmeli</del><span class="yapildi-badge">✓ YAPILDI — Developer'a kodlama talimatı verildi</span><span class="tag tw">SWING</span></div><div class="iss-desc">CNS__SWING_New botuna sinyal_tipi = SCALP geldiğinde reddet filtresi için developer'a talimat verildi. V3'te etki ölçülecek.</div></div></div>
+  <div class="issue iss-done"><div class="iss-icon">✅</div><div class="iss-body"><div class="iss-title"><del>Fee yükü kritik — Scalp max pozisyon azaltılmalı</del><span class="yapildi-badge">✓ YAPILDI — Max POS düşürüldü</span><span class="tag ts">SCALP</span></div><div class="iss-desc">CNS_Scalp_New max pozisyon ve/veya kaldıraç ayarı güncellendi. V3'te fee etkisi ölçülecek.</div></div></div>
   <div class="issue iss-warn"><div class="iss-icon">🟡</div><div class="iss-body"><div class="iss-title">150+ trade eşiği bekleniyor — İstatistiksel güvenilirlik için<span class="tag tb">HER İKİSİ</span></div><div class="iss-desc">Scalp 78, Swing 69 trade. İstatistiksel güvenilirlik için minimum 150 trade gerekiyor. V3 snapshot en az 2-3 hafta daha veri toplandıktan sonra alınmalı.</div></div></div>
   <div class="issue iss-ok"><div class="iss-icon">🟢</div><div class="iss-body"><div class="iss-title">Manuel trading %54 WR — Bu sinyalleri bota entegre et<span class="tag tb">HER İKİSİ</span></div><div class="iss-desc">Scalp manuel: %54 WR (13 trade), Swing manuel: %43 WR (7 trade). Manuel girişlerin hangi kurallara dayandığını analiz et ve bota ekle.</div></div></div>
   <div class="issue iss-ok"><div class="iss-icon">🟢</div><div class="iss-body"><div class="iss-title">Scalp Min Score gözden geçir — ±9.5'ten ±10'a çıkar<span class="tag ts">SCALP</span></div><div class="iss-desc">V1 analizinde ±10+ skor bandının WR'ı dramatik artırdığı görülmüştü. Scalp için de uygulandı mı netleştirilmeli.</div></div></div>
@@ -289,20 +289,6 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
   <div class="prog-card"><div class="prog-header"><span class="prog-name">Swing Win Rate</span><span class="prog-pct c-r">29.0% / 40%</span></div><div class="prog-cur c-r">29.0%</div><div class="prog-v1">V1: 32.9% (↓ geriledik)</div><div class="prog-target">Hedef: 40% (canlıya geçiş)</div><div class="prog-track"><div class="prog-fill" style="width:72.5%;background:linear-gradient(90deg,#F85149,#FF6B6B)"></div><div class="prog-v1-mark" style="left:82.3%"></div></div></div>
   <div class="prog-card"><div class="prog-header"><span class="prog-name">Scalp Profit Factor</span><span class="prog-pct c-g">1.56 / 1.7</span></div><div class="prog-cur c-g">1.56</div><div class="prog-v1" style="color:var(--green)">V1: 1.15 (↑ iyileştik)</div><div class="prog-target">Hedef: 1.7 (funded)</div><div class="prog-track"><div class="prog-fill" style="width:91.8%;background:linear-gradient(90deg,#3FB950,#56D364)"></div><div class="prog-v1-mark" style="left:47.9%"></div></div></div>
   <div class="prog-card"><div class="prog-header"><span class="prog-name">Swing Profit Factor</span><span class="prog-pct c-g">2.28 / 1.7</span></div><div class="prog-cur c-g">2.28 ✓</div><div class="prog-v1" style="color:var(--green)">V1: 0.78 (↑↑ dramatik artış)</div><div class="prog-target">Hedef: 1.7 — AŞILDI</div><div class="prog-track"><div class="prog-fill" style="width:100%;background:linear-gradient(90deg,#3FB950,#56D364)"></div><div class="prog-v1-mark" style="left:25.9%"></div></div></div>
-</div>
-<div class="targets-card">
-  <div class="sec-title">Profesyonel Hedefler — V1 → V2 Güncellenmiş Durum</div>
-  <table>
-    <thead><tr><th>Metrik</th><th style="color:var(--purple)">V1 (~3 Haz)</th><th style="color:var(--accent)">V2 (22 Haz)</th><th style="color:var(--yellow)">Min (canlıya geçiş)</th><th style="color:var(--accent)">İyi (funded)</th><th style="color:var(--green)">Mükemmel</th></tr></thead>
-    <tbody>
-      <tr><td class="tl">Scalp Win Rate</td><td class="tv1">37.7%</td><td class="ty">35.9%</td><td class="ty">45%</td><td class="tg">52%</td><td class="tg">60%+</td></tr>
-      <tr><td class="tl">Swing Win Rate</td><td class="tv1">32.9%</td><td class="tr">29.0%</td><td class="ty">40%</td><td class="tg">48%</td><td class="tg">55%+</td></tr>
-      <tr><td class="tl">Scalp Profit Factor</td><td class="tv1">~1.15</td><td class="ty">1.56</td><td class="ty">1.3</td><td class="tg">1.7</td><td class="tg">2.5+</td></tr>
-      <tr><td class="tl">Swing Profit Factor</td><td class="tv1">0.78</td><td class="tg">2.28 ✓</td><td class="ty">1.3</td><td class="tg">1.7</td><td class="tg">2.5+</td></tr>
-      <tr><td class="tl">Swing Gerçek WR</td><td class="tv1">—</td><td class="tg">58% (12t)</td><td class="ty">40%</td><td class="tg">48%</td><td class="tg">55%+</td></tr>
-      <tr><td class="tl">Toplam Fees / PnL oranı</td><td class="tv1">—</td><td class="tr">~%90+</td><td class="ty">&lt;%30</td><td class="tg">&lt;%15</td><td class="tg">&lt;%10</td></tr>
-    </tbody>
-  </table>
 </div>
 <div class="summary-box">
   <div class="sec-title">V2 Özet — Neler İyileşti, Neler Kötüleşti?</div>
@@ -321,10 +307,10 @@ footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-t
       <div class="sum-item"><div class="si-dot si-dot-r"></div><span>Swing bot 73% scalp sinyali üretiyor</span></div>
     </div>
     <div class="sum-section"><h4 class="sum-warn">→ V3 için Aksiyonlar</h4>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Swing trailing stop 3% → 10% doğrula ve uygula</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Swing botta scalp sinyallerini filtrele</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Fee optimizasyonu — scalp POS sayısını azalt</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>150+ trade sonrası V3 snapshot al</span></div>
+      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>150+ trade eşiğini bekle, V3 snapshot al</span></div>
+      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Scalp sinyal filtresi kodlamasının etkisini ölç</span></div>
+      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Trailing stop %10 etkisini V3'te karşılaştır</span></div>
+      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Fee düşüşünü doğrula (max POS azaltıldı)</span></div>
     </div>
   </div>
 </div>
