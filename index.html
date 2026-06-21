@@ -3,360 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>v2 — Post-Optimization Review — AlgoBot SISTEM-1</title>
+<title>SISTEM-1 AlgoBot Tracker</title>
 <style>
-:root{--bg:#0D1117;--panel:#161B22;--border:#21262D;--text:#E6EDF3;--muted:#8B949E;--accent:#58A6FF;--green:#3FB950;--red:#F85149;--yellow:#D29922;--purple:#A78BFA;--blue:#60A5FA;--orange:#FB8F44;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;}
-nav{background:var(--panel);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:24px;height:52px;position:sticky;top:0;z-index:100;}
-.nav-logo{font-weight:800;font-size:15px;color:var(--accent);letter-spacing:1px;text-decoration:none;}
-.nav-logo span{color:var(--muted);font-weight:400;}
-nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:4px 0;border-bottom:2px solid transparent;}
-nav a:hover,nav a.active{color:var(--text);border-bottom-color:var(--accent);}
-.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
-.v-pill{background:rgba(88,166,255,.15);color:var(--accent);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid rgba(88,166,255,.3);}
-main{max-width:1300px;margin:0 auto;padding:32px;}
-.page-header{margin-bottom:28px;}
-.page-header h1{font-size:22px;font-weight:700;margin-bottom:4px;}
-.page-header .meta{color:var(--muted);font-size:13px;}
-.date-badge{display:inline-flex;align-items:center;gap:8px;margin-top:8px;margin-bottom:4px;}
-.date-chip{background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:var(--accent);}
-.v1-ref-chip{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:600;color:var(--purple);}
-.arrow-chip{color:var(--muted);font-size:12px;}
-.health-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-top:10px;}
-.health-warn{background:rgba(210,153,34,.15);color:var(--yellow);border:1px solid rgba(210,153,34,.3);}
-.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
-.sc{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
-.sl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
-.sv{font-size:22px;font-weight:700;}
-.ss{font-size:11px;color:var(--muted);margin-top:3px;}
-.sdelta{font-size:11px;margin-top:2px;font-weight:600;}
-.c-g{color:var(--green);}.c-r{color:var(--red);}.c-y{color:var(--yellow);}.c-b{color:var(--accent);}
-.bots-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-.bot-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;}
-.bot-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
-.bdot{width:10px;height:10px;border-radius:50%;}
-.bdot-s{background:#3B82F6;}.bdot-w{background:#8B5CF6;}
-.bname{font-size:15px;font-weight:700;}
-.btype{font-size:11px;background:var(--border);color:var(--muted);padding:2px 8px;border-radius:20px;}
-.badge{margin-left:auto;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
-.bg-warn{background:rgba(210,153,34,.1);color:var(--yellow);border:1px solid rgba(210,153,34,.3);}
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;}
-.kpi{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center;}
-.kl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
-.kv{font-size:18px;font-weight:700;}
-.ks{font-size:11px;color:var(--muted);margin-top:2px;}
-.kdelta{font-size:10px;margin-top:2px;font-weight:600;}
-.wr-bar-wrap{margin-top:4px;}
-.wr-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
-.wr-track{height:7px;background:var(--border);border-radius:3px;overflow:hidden;}
-.wr-fill{height:100%;border-radius:3px;}
-.fill-s{background:linear-gradient(90deg,#3B82F6,#60A5FA);}
-.fill-w{background:linear-gradient(90deg,#8B5CF6,#A78BFA);}
-.fill-v1{background:rgba(139,92,246,.3);}
-hr.div{border:none;border-top:1px solid var(--border);margin:12px 0;}
-.cfg{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-.ci{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;}
-.ci:last-child{border-bottom:none;}
-.ck{color:var(--muted);}.cv{font-weight:600;}
-.comp-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
-.sec-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;}
-table{width:100%;border-collapse:collapse;}
-th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;}
-th:not(:first-child){text-align:center;}
-td{padding:9px 12px;border-bottom:1px solid rgba(33,38,45,.5);font-size:13px;}
-td:not(:first-child){text-align:center;font-weight:600;}
-tr:last-child td{border-bottom:none;}
-.tl{color:var(--muted);}.tg{color:var(--green);font-weight:600;}.tr{color:var(--red);font-weight:600;}.ty{color:var(--yellow);font-weight:600;}.tn{color:var(--text);font-weight:600;}.tv1{color:var(--purple);font-weight:600;}
-.up{color:var(--green);}.down{color:var(--red);}.flat{color:var(--muted);}
-.opts-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
-.issues-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
-.issue{display:flex;gap:12px;padding:12px;border-radius:8px;margin-bottom:8px;}
-.issue:last-child{margin-bottom:0;}
-.iss-warn{background:rgba(210,153,34,.07);border-left:3px solid var(--yellow);}
-.iss-ok{background:rgba(63,185,80,.07);border-left:3px solid var(--green);}
-.iss-done{background:rgba(63,185,80,.05);border-left:3px solid rgba(63,185,80,.4);}
-.iss-icon{font-size:15px;margin-top:1px;flex-shrink:0;}
-.iss-body{flex:1;}
-.iss-title{font-weight:600;font-size:13px;margin-bottom:3px;}
-.iss-desc{color:var(--muted);font-size:12px;line-height:1.5;}
-.yapildi-badge{font-size:10px;background:rgba(63,185,80,.15);color:var(--green);padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;}
-.opt-row{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:8px;margin-bottom:8px;}
-.opt-row:last-child{margin-bottom:0;}
-.opt-ok{background:rgba(63,185,80,.07);border-left:3px solid var(--green);}
-.opt-crit{background:rgba(248,81,73,.07);border-left:3px solid var(--red);}
-.opt-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
-.opt-body{flex:1;}
-.opt-title{font-weight:600;font-size:13px;margin-bottom:3px;}
-.opt-desc{color:var(--muted);font-size:12px;line-height:1.5;}
-.opt-result{display:inline-block;margin-top:5px;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;}
-.res-ok{background:rgba(63,185,80,.15);color:var(--green);}
-.res-crit{background:rgba(248,81,73,.15);color:var(--red);}
-.tag{font-size:10px;padding:1px 6px;border-radius:10px;margin-left:5px;}
-.ts{background:rgba(59,130,246,.2);color:#60A5FA;}
-.tw{background:rgba(139,92,246,.2);color:#A78BFA;}
-.tb{background:rgba(33,38,45,.8);color:var(--muted);}
-.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.prog-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;}
-.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.prog-name{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;}
-.prog-pct{font-size:11px;font-weight:600;}
-.prog-cur{font-size:20px;font-weight:700;}
-.prog-v1{font-size:11px;color:var(--purple);margin-top:2px;}
-.prog-target{font-size:11px;color:var(--muted);}
-.prog-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:8px;position:relative;}
-.prog-fill{height:100%;border-radius:4px;}
-.prog-v1-mark{position:absolute;top:0;height:100%;width:2px;background:rgba(139,92,246,.6);}
-.summary-box{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px;}
-.sum-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
-.sum-section h4{font-size:12px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:10px;}
-.sum-ok{color:var(--green);}.sum-bad{color:var(--red);}.sum-warn{color:var(--yellow);}
-.sum-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;margin-bottom:6px;line-height:1.4;}
-.si-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.si-dot-g{background:var(--green);}.si-dot-r{background:var(--red);}.si-dot-y{background:var(--yellow);}
-footer{text-align:center;padding:24px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:32px;}
+html,body{height:100%;overflow:hidden;background:#0D1117;font-family:'Segoe UI',system-ui,sans-serif;}
+.shell{display:flex;flex-direction:column;height:100vh;}
+.topbar{background:#161B22;border-bottom:1px solid #21262D;padding:0 28px;display:flex;align-items:center;gap:0;height:52px;flex-shrink:0;}
+.logo{font-weight:800;font-size:15px;color:#58A6FF;letter-spacing:1px;margin-right:28px;white-space:nowrap;}
+.logo span{color:#8B949E;font-weight:400;}
+.tabs{display:flex;gap:2px;align-items:center;height:100%;}
+.tab{display:flex;align-items:center;gap:7px;padding:0 18px;height:100%;cursor:pointer;border:none;background:transparent;color:#8B949E;font-size:13px;font-family:inherit;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;position:relative;}
+.tab:hover{color:#E6EDF3;}
+.tab.active{color:#E6EDF3;border-bottom-color:#58A6FF;}
+.tab .vpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:rgba(88,166,255,.12);color:#58A6FF;border:1px solid rgba(88,166,255,.25);}
+.tab.v1 .vpill{background:rgba(139,92,246,.12);color:#A78BFA;border-color:rgba(139,92,246,.25);}
+.tab.v2 .vpill{background:rgba(88,166,255,.12);color:#58A6FF;border-color:rgba(88,166,255,.25);}
+.tab.coming .vpill{background:rgba(33,38,45,.8);color:#8B949E;border-color:#21262D;}
+.tab.coming{opacity:.55;cursor:default;pointer-events:none;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.info-chip{font-size:11px;color:#8B949E;background:#0D1117;border:1px solid #21262D;padding:3px 10px;border-radius:20px;}
+.frame-area{flex:1;position:relative;overflow:hidden;}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:none;}
+iframe.visible{display:block;}
+.loading{position:absolute;inset:0;background:#0D1117;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:10;transition:opacity .3s;}
+.loading.hidden{opacity:0;pointer-events:none;}
+.spin{width:32px;height:32px;border:3px solid #21262D;border-top-color:#58A6FF;border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{color:#8B949E;font-size:13px;}
 </style>
 </head>
 <body>
-<nav>
-  <a href="../index.html" class="nav-logo">SISTEM<span>-1</span></a>
-  <a href="../index.html">Ana Sayfa</a>
-  <a href="../v1/index.html">v1 — Baseline</a>
-  <a href="index.html" class="active">v2 — Post-Optimization</a>
-  <div class="nav-right"><div class="v-pill">v2 · 22 Haziran 2026</div></div>
-</nav>
-<main>
-<div class="page-header">
-  <h1>v2 — Post-Optimization Performans Review</h1>
-  <div class="date-badge">
-    <div class="v1-ref-chip">v1 Baseline · ~3 Haziran 2026</div>
-    <div class="arrow-chip">→</div>
-    <div class="date-chip">v2 Review · 22 Haziran 2026</div>
-  </div>
-  <div class="meta">147 trade · CNS_Scalp_New + CNS__SWING_New · Paper Trading $10,000/bot · 5 optimizasyon uygulandıktan sonra ilk ölçüm</div>
-  <div class="health-badge health-warn">GENEL SAGLIK: GEÇIŞ SÜRECİ — Profit Factor iyileşti, Win Rate hâlâ kritik eşiğin altında</div>
-</div>
-
-<div class="strip">
-  <div class="sc"><div class="sl">Toplam Trade (V2)</div><div class="sv c-b">147</div><div class="ss">78 Scalp + 69 Swing</div><div class="sdelta" style="color:var(--muted)">V1: 335 (tüm botlar)</div></div>
-  <div class="sc"><div class="sl">Scalp Win Rate</div><div class="sv c-y">35.9%</div><div class="ss">28W / 50L</div><div class="sdelta down">↓ V1: 37.7% (-1.8%)</div></div>
-  <div class="sc"><div class="sl">Swing Win Rate</div><div class="sv c-r">29.0%</div><div class="ss">20W / 49L</div><div class="sdelta down">↓ V1: 32.9% (-3.9%)</div></div>
-  <div class="sc"><div class="sl">Scalp Profit Factor</div><div class="sv c-g">1.56</div><div class="ss">Fees: $84.56</div><div class="sdelta up">↑ V1: ~1.15 (+0.41)</div></div>
-  <div class="sc"><div class="sl">Swing Profit Factor</div><div class="sv c-g">2.28</div><div class="ss">Fees: $74.32</div><div class="sdelta up">↑↑ V1: 0.78 (+1.50)</div></div>
-  <div class="sc"><div class="sl">Swing Best Trade</div><div class="sv c-g">+$138</div><div class="ss">Min score ↑ etkisi</div><div class="sdelta up">↑ Büyük kazanç yakalandı</div></div>
-</div>
-
-<div class="bots-grid">
-  <div class="bot-card">
-    <div class="bot-head"><div class="bdot bdot-s"></div><div class="bname">CNS_Scalp_New</div><div class="btype">SCALP · 5x · PAPER</div><div class="badge bg-warn">DEVAM EDİYOR</div></div>
-    <div class="kpis">
-      <div class="kpi"><div class="kl">Win Rate</div><div class="kv c-y">35.9%</div><div class="ks">28W / 50L</div><div class="kdelta down">↓ V1: 37.7%</div></div>
-      <div class="kpi"><div class="kl">Net PnL</div><div class="kv c-r">-$91.81</div><div class="ks">78 trade</div></div>
-      <div class="kpi"><div class="kl">Profit Factor</div><div class="kv c-g">1.56</div><div class="ks">Avg Win/Loss</div><div class="kdelta up">↑ V1: ~1.15</div></div>
-      <div class="kpi"><div class="kl">Best Trade</div><div class="kv c-g" style="font-size:14px;">+$58.81</div></div>
-      <div class="kpi"><div class="kl">Total Fees</div><div class="kv c-r" style="font-size:14px;">$84.56</div><div class="ks">⚠️ Kritik</div></div>
+<div class="shell">
+  <div class="topbar">
+    <div class="logo">SISTEM<span>-1</span></div>
+    <div class="tabs">
+      <button class="tab v1 active" data-src="v1/index.html" onclick="switchTab(this)">
+        <span>Baseline</span>
+        <span class="vpill">v1 · ~3 Haz 2026</span>
+      </button>
+      <button class="tab v2" data-src="v2/index.html" onclick="switchTab(this)">
+        <span>Post-Optimization</span>
+        <span class="vpill">v2 · 22 Haz 2026</span>
+      </button>
+      <button class="tab coming">
+        <span>Sonraki Analiz</span>
+        <span class="vpill">v3 · yakında</span>
+      </button>
     </div>
-    <div class="wr-bar-wrap">
-      <div class="wr-labels"><span>V2: 35.9%</span><span style="color:var(--purple)">V1: 37.7%</span><span style="color:var(--yellow)">Hedef: 45%+</span></div>
-      <div class="wr-track"><div class="wr-fill fill-s" style="width:35.9%"></div></div>
-      <div class="wr-track" style="margin-top:3px;opacity:.4;"><div class="wr-fill fill-v1" style="width:37.7%"></div></div>
-    </div>
-    <hr class="div">
-    <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Sinyal Tipi Dağılımı:</div>
-    <div style="display:flex;gap:8px;margin-bottom:12px;">
-      <div style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:10px;color:var(--muted);">AUTO SCALP</div><div style="font-size:15px;font-weight:700;color:var(--accent);">56</div><div style="font-size:10px;color:var(--yellow);">32% WR</div></div>
-      <div style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:10px;color:var(--muted);">AUTO SWING</div><div style="font-size:15px;font-weight:700;color:var(--accent);">9</div><div style="font-size:10px;color:var(--yellow);">33% WR</div></div>
-      <div style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:10px;color:var(--muted);">MANUEL</div><div style="font-size:15px;font-weight:700;color:var(--accent);">13</div><div style="font-size:10px;color:var(--green);">54% WR</div></div>
-    </div>
-    <hr class="div">
-    <div class="cfg">
-      <div>
-        <div class="ci"><span class="ck">TP / SL</span><span class="cv">30% / 10%</span></div>
-        <div class="ci"><span class="ck">Trailing Stop</span><span class="cv">3%</span></div>
-        <div class="ci"><span class="ck">Kayıp (Worst)</span><span class="cv" style="color:var(--red)">-$21.86</span></div>
-      </div>
-      <div>
-        <div class="ci"><span class="ck">Kaynak</span><span class="cv">HAMMER+FR</span></div>
-        <div class="ci"><span class="ck">Kaldıraç</span><span class="cv">5x / 3 pos</span></div>
-        <div class="ci"><span class="ck">Toplam Fees</span><span class="cv" style="color:var(--red)">$84.56</span></div>
-      </div>
+    <div class="topbar-right">
+      <div class="info-chip">Paper Trading · $10,000/bot</div>
+      <div class="info-chip">CNS Scalp + CNS Swing</div>
     </div>
   </div>
-
-  <div class="bot-card">
-    <div class="bot-head"><div class="bdot bdot-w"></div><div class="bname">CNS__SWING_New</div><div class="btype">SWING · 5x · PAPER</div><div class="badge bg-warn">PF GÜÇLÜ / WR ZAYIF</div></div>
-    <div class="kpis">
-      <div class="kpi"><div class="kl">Win Rate</div><div class="kv c-r">29.0%</div><div class="ks">20W / 49L</div><div class="kdelta down">↓ V1: 32.9%</div></div>
-      <div class="kpi"><div class="kl">Net PnL</div><div class="kv c-r">-$72.27</div><div class="ks">69 trade</div><div class="kdelta up">↑ V1: -$222</div></div>
-      <div class="kpi"><div class="kl">Profit Factor</div><div class="kv c-g">2.28</div><div class="ks">Dramatik artış</div><div class="kdelta up">↑↑ V1: 0.78</div></div>
-      <div class="kpi"><div class="kl">Best Trade</div><div class="kv c-g" style="font-size:14px;">+$138.28</div></div>
-      <div class="kpi"><div class="kl">Total Fees</div><div class="kv c-r" style="font-size:14px;">$74.32</div><div class="ks">⚠️ Kritik</div></div>
+  <div class="frame-area">
+    <div class="loading" id="loading">
+      <div class="spin"></div>
+      <p>Yükleniyor...</p>
     </div>
-    <div class="wr-bar-wrap">
-      <div class="wr-labels"><span>V2: 29.0%</span><span style="color:var(--purple)">V1: 32.9%</span><span style="color:var(--yellow)">Hedef: 40%+</span></div>
-      <div class="wr-track"><div class="wr-fill fill-w" style="width:29%"></div></div>
-      <div class="wr-track" style="margin-top:3px;opacity:.4;"><div class="wr-fill fill-v1" style="width:32.9%"></div></div>
-    </div>
-    <hr class="div">
-    <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Sinyal Tipi Dağılımı</div>
-    <div style="display:flex;gap:8px;margin-bottom:12px;">
-      <div style="flex:2;background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.2);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:10px;color:var(--muted);">AUTO SCALP</div><div style="font-size:15px;font-weight:700;color:var(--red);">50</div><div style="font-size:10px;color:var(--red);">20% WR — SORUN</div></div>
-      <div style="flex:1;background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.2);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:10px;color:var(--muted);">AUTO SWING</div><div style="font-size:15px;font-weight:700;color:var(--green);">12</div><div style="font-size:10px;color:var(--green);">58% WR ✓</div></div>
-      <div style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px;text-align:center;"><div style="font-size:10px;color:var(--muted);">MANUEL</div><div style="font-size:15px;font-weight:700;color:var(--accent);">7</div><div style="font-size:10px;color:var(--yellow);">43% WR</div></div>
-    </div>
-    <hr class="div">
-    <div class="cfg">
-      <div>
-        <div class="ci"><span class="ck">TP / SL</span><span class="cv">70% / 20%</span></div>
-        <div class="ci"><span class="ck">Trailing Stop</span><span class="cv" style="color:var(--green)">10% ✓ Güncellendi</span></div>
-        <div class="ci"><span class="ck">Kayıp (Worst)</span><span class="cv" style="color:var(--red)">-$41.44</span></div>
-      </div>
-      <div>
-        <div class="ci"><span class="ck">Kaynak</span><span class="cv">SNIPER</span></div>
-        <div class="ci"><span class="ck">Kaldıraç</span><span class="cv">5x / 5 pos</span></div>
-        <div class="ci"><span class="ck">Toplam Fees</span><span class="cv" style="color:var(--red)">$74.32</span></div>
-      </div>
-    </div>
+    <iframe id="frame-v1" src="v1/index.html" class="visible" onload="frameLoaded(this)"></iframe>
+    <iframe id="frame-v2" src="" onload="frameLoaded(this)"></iframe>
   </div>
 </div>
+<script>
+let loaded = {v1: false, v2: false};
 
-<div class="comp-card">
-  <div class="sec-title">V1 → V2 Karşılaştırma — Temel Metrikler</div>
-  <table>
-    <thead><tr><th>Metrik</th><th style="color:var(--purple)">V1 Baseline (~3 Haz)</th><th style="color:var(--accent)">V2 Review (22 Haz)</th><th>Değişim</th><th style="color:var(--muted)">Hedef (v4)</th></tr></thead>
-    <tbody>
-      <tr><td class="tl" colspan="5" style="background:rgba(59,130,246,.05);color:var(--accent);font-weight:700;font-size:11px;text-transform:uppercase;">CNS_Scalp_New</td></tr>
-      <tr><td class="tl">Win Rate</td><td class="tv1">37.7%</td><td class="ty">35.9%</td><td class="tr">↓ -1.8%</td><td class="tg">45%+</td></tr>
-      <tr><td class="tl">Profit Factor</td><td class="tv1">~1.15</td><td class="tg">1.56</td><td class="tg">↑ +0.41</td><td class="tg">1.7+</td></tr>
-      <tr><td class="tl">Net PnL</td><td class="tv1">+$303.68</td><td class="tr">-$91.81</td><td class="flat">Paper reset</td><td class="tg">+$500+</td></tr>
-      <tr><td class="tl">Total Fees</td><td class="tv1">—</td><td class="tr">$84.56</td><td class="tr">⚠️ Yüksek</td><td class="ty">&lt;$50</td></tr>
-      <tr><td class="tl" colspan="5" style="background:rgba(139,92,246,.05);color:var(--purple);font-weight:700;font-size:11px;text-transform:uppercase;padding-top:12px;">CNS__SWING_New</td></tr>
-      <tr><td class="tl">Win Rate</td><td class="tv1">32.9%</td><td class="tr">29.0%</td><td class="tr">↓ -3.9%</td><td class="tg">40%+</td></tr>
-      <tr><td class="tl">Profit Factor</td><td class="tv1">0.78</td><td class="tg">2.28</td><td class="tg">↑↑ +1.50</td><td class="tg">1.7+</td></tr>
-      <tr><td class="tl">Net PnL</td><td class="tv1">-$221.96</td><td class="tr">-$72.27</td><td class="tg">↑ Zarar azaldı</td><td class="tg">Pozitif</td></tr>
-      <tr><td class="tl">Best Trade</td><td class="tv1">—</td><td class="tg">+$138.28</td><td class="tg">↑↑ Büyük kazanç</td><td class="tg">—</td></tr>
-      <tr><td class="tl">Swing WR (gerçek)</td><td class="tv1">—</td><td class="tg">58% (12t)</td><td class="tg">↑↑ Min score etkisi</td><td class="tg">55%+</td></tr>
-    </tbody>
-  </table>
-</div>
+function frameLoaded(iframe){
+  document.getElementById('loading').classList.add('hidden');
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    const nav = doc.querySelector('nav');
+    if(nav) nav.style.display = 'none';
+    const main = doc.querySelector('main');
+    if(main) main.style.paddingTop = '24px';
+  } catch(e){}
+}
 
-<div class="opts-card">
-  <div class="sec-title">V1 Optimizasyonlarının Sonuçları</div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Swing Min Score: +-5 → +-10<span class="tag tw">SWING</span></div><div class="opt-desc">Swing sinyallerinin WR'ı 58%'e yükseldi.</div><div class="opt-result res-ok">Etkili</div></div></div>
-  <div class="opt-row opt-crit"><div class="opt-icon">⚠️</div><div class="opt-body"><div class="opt-title">Swing Trailing Stop — Config'de hâlâ 3% görünüyordu<span class="tag tw">SWING</span></div><div class="opt-desc">V2 sürecinde tespit edildi. Düzeltildi: TRAIL 3% → 10%.</div><div class="opt-result res-ok">V2'de düzeltildi ✓</div></div></div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Rule_06 TF Divergence kapatıldı<span class="tag tb">HER İKİSİ</span></div><div class="opt-desc">8.3% WR, -$17.82 ort PnL ile en kötü kuraldı. Kapatıldı.</div><div class="opt-result res-ok">Uygulandı</div></div></div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">Rule_14 RSI Div+NW+WT — Swing'de kapatıldı<span class="tag tw">SWING</span></div><div class="opt-desc">Swing PF artışına (0.78 → 2.28) katkıda bulundu.</div><div class="opt-result res-ok">Uygulandı</div></div></div>
-  <div class="opt-row opt-ok"><div class="opt-icon">✅</div><div class="opt-body"><div class="opt-title">FR Bucket (Rule_10) — Her iki botta açıldı<span class="tag tb">HER İKİSİ</span></div><div class="opt-desc">45.3% WR ile en yüksek performanslı kuraldı.</div><div class="opt-result res-ok">Uygulandı</div></div></div>
-</div>
+function switchTab(btn){
+  if(btn.classList.contains('active')) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const src = btn.dataset.src;
+  const key = src.split('/')[0];
+  const frame = document.getElementById('frame-' + key);
+  document.querySelectorAll('iframe').forEach(f => f.classList.remove('visible'));
+  if(!loaded[key]){
+    document.getElementById('loading').classList.remove('hidden');
+    frame.src = src;
+    loaded[key] = true;
+  }
+  frame.classList.add('visible');
+  location.hash = key;
+}
 
-<div class="issues-card">
-  <div class="sec-title">V3 için Tespit Edilen Sorunlar — Öncelik Sırasıyla</div>
-
-  <div class="issue iss-done">
-    <div class="iss-icon">✅</div>
-    <div class="iss-body">
-      <div class="iss-title"><del>Swing Trailing Stop hâlâ 3% — %10'a yükseltilmeli</del><span class="yapildi-badge">✓ YAPILDI — %10'a yükseltildi</span><span class="tag tw">SWING</span></div>
-      <div class="iss-desc">Config güncellendi. TRAIL: 3% → 10%. TP %70 hedefine ulaşma ihtimali artık çok daha yüksek.</div>
-    </div>
-  </div>
-
-  <div class="issue iss-done">
-    <div class="iss-icon">✅</div>
-    <div class="iss-body">
-      <div class="iss-title"><del>Swing bot 73% scalp sinyali üretiyor — Filtre eklenmeli</del><span class="yapildi-badge">✓ YAPILDI — Developer'a kodlama talimatı verildi</span><span class="tag tw">SWING</span></div>
-      <div class="iss-desc">CNS__SWING_New botuna sinyal_tipi = SCALP geldiğinde reddet filtresi için developer'a talimat verildi. V3'te etki ölçülecek.</div>
-    </div>
-  </div>
-
-  <div class="issue iss-done">
-    <div class="iss-icon">✅</div>
-    <div class="iss-body">
-      <div class="iss-title"><del>Fee yükü kritik — Scalp max pozisyon azaltılmalı</del><span class="yapildi-badge">✓ YAPILDI — Max POS düşürüldü</span><span class="tag ts">SCALP</span></div>
-      <div class="iss-desc">CNS_Scalp_New max pozisyon ve/veya kaldıraç ayarı güncellendi. V3'te fee etkisi ölçülecek.</div>
-    </div>
-  </div>
-
-  <div class="issue iss-warn">
-    <div class="iss-icon">🟡</div>
-    <div class="iss-body">
-      <div class="iss-title">150+ trade eşiği bekleniyor — İstatistiksel güvenilirlik için<span class="tag tb">HER İKİSİ</span></div>
-      <div class="iss-desc">Scalp 78, Swing 69 trade. Minimum 150 trade sonrası V3 snapshot alınmalı.</div>
-    </div>
-  </div>
-
-  <div class="issue iss-ok">
-    <div class="iss-icon">🟢</div>
-    <div class="iss-body">
-      <div class="iss-title">Manuel trading %54 WR — Bu sinyalleri bota entegre et<span class="tag tb">HER İKİSİ</span></div>
-      <div class="iss-desc">Scalp manuel: %54 WR (13 trade), Swing manuel: %43 WR (7 trade). Manuel girişlerin hangi kurallara dayandığını analiz et ve bota ekle.</div>
-    </div>
-  </div>
-
-  <div class="issue iss-ok">
-    <div class="iss-icon">🟢</div>
-    <div class="iss-body">
-      <div class="iss-title">Scalp Min Score gözden geçir — ±9.5'ten ±10'a çıkar<span class="tag ts">SCALP</span></div>
-      <div class="iss-desc">V1 analizinde ±10+ skor bandının WR'ı dramatik artırdığı görülmüştü. Scalp için de uygulandı mı netleştirilmeli.</div>
-    </div>
-  </div>
-</div>
-
-<div class="prog-grid">
-  <div class="prog-card">
-    <div class="prog-header"><span class="prog-name">Scalp Win Rate</span><span class="prog-pct c-y">35.9% / 45%</span></div>
-    <div class="prog-cur c-y">35.9%</div>
-    <div class="prog-v1">V1: 37.7% (↓ geriledik)</div>
-    <div class="prog-target">Hedef: 45%</div>
-    <div class="prog-track"><div class="prog-fill" style="width:79.8%;background:linear-gradient(90deg,#D29922,#F0A500)"></div><div class="prog-v1-mark" style="left:83.8%"></div></div>
-  </div>
-  <div class="prog-card">
-    <div class="prog-header"><span class="prog-name">Swing Win Rate</span><span class="prog-pct c-r">29.0% / 40%</span></div>
-    <div class="prog-cur c-r">29.0%</div>
-    <div class="prog-v1">V1: 32.9% (↓ geriledik)</div>
-    <div class="prog-target">Hedef: 40%</div>
-    <div class="prog-track"><div class="prog-fill" style="width:72.5%;background:linear-gradient(90deg,#F85149,#FF6B6B)"></div><div class="prog-v1-mark" style="left:82.3%"></div></div>
-  </div>
-  <div class="prog-card">
-    <div class="prog-header"><span class="prog-name">Scalp Profit Factor</span><span class="prog-pct c-g">1.56 / 1.7</span></div>
-    <div class="prog-cur c-g">1.56</div>
-    <div class="prog-v1" style="color:var(--green)">V1: 1.15 (↑ iyileştik)</div>
-    <div class="prog-target">Hedef: 1.7</div>
-    <div class="prog-track"><div class="prog-fill" style="width:91.8%;background:linear-gradient(90deg,#3FB950,#56D364)"></div><div class="prog-v1-mark" style="left:47.9%"></div></div>
-  </div>
-  <div class="prog-card">
-    <div class="prog-header"><span class="prog-name">Swing Profit Factor</span><span class="prog-pct c-g">2.28 / 1.7</span></div>
-    <div class="prog-cur c-g">2.28 ✓</div>
-    <div class="prog-v1" style="color:var(--green)">V1: 0.78 (↑↑ dramatik artış)</div>
-    <div class="prog-target">Hedef: 1.7 — AŞILDI</div>
-    <div class="prog-track"><div class="prog-fill" style="width:100%;background:linear-gradient(90deg,#3FB950,#56D364)"></div><div class="prog-v1-mark" style="left:25.9%"></div></div>
-  </div>
-</div>
-
-<div class="summary-box">
-  <div class="sec-title">V2 Özet — Neler İyileşti, Neler Kötüleşti?</div>
-  <div class="sum-grid">
-    <div class="sum-section"><h4 class="sum-ok">✓ İyileşenler</h4>
-      <div class="sum-item"><div class="si-dot si-dot-g"></div><span>Swing Profit Factor: 0.78 → 2.28 — hedefi aştı</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-g"></div><span>Scalp Profit Factor: 1.15 → 1.56 — büyük ilerleme</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-g"></div><span>Swing gerçek trade WR: 58% — kurumsal seviye</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-g"></div><span>Swing best trade: +$138.28</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-g"></div><span>Mutlak zarar azaldı: -$222 → -$72 (swing)</span></div>
-    </div>
-    <div class="sum-section"><h4 class="sum-bad">✗ Kötüleşenler</h4>
-      <div class="sum-item"><div class="si-dot si-dot-r"></div><span>Scalp WR: 37.7% → 35.9% (-1.8%)</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-r"></div><span>Swing WR: 32.9% → 29.0% (-3.9%)</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-r"></div><span>Her iki bot da fee'lerden zarar ediyor</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-r"></div><span>Swing bot 73% scalp sinyali üretiyor</span></div>
-    </div>
-    <div class="sum-section"><h4 class="sum-warn">→ V3 için Aksiyonlar</h4>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>150+ trade eşiğini bekle, V3 snapshot al</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Scalp sinyal filtresi kodlamasının etkisini ölç</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Trailing stop %10 etkisini V3'te karşılaştır</span></div>
-      <div class="sum-item"><div class="si-dot si-dot-y"></div><span>Fee düşüşünü doğrula (max POS azaltıldı)</span></div>
-    </div>
-  </div>
-</div>
-</main>
-<footer>SISTEM-1 · v2 Post-Optimization Review · 147 trade · 22 Haziran 2026 · cansuben.github.io/algobot-tracker</footer>
+window.addEventListener('DOMContentLoaded', () => {
+  loaded['v1'] = true;
+  const hash = location.hash.replace('#','');
+  if(hash === 'v2'){
+    const v2btn = document.querySelector('.tab.v2');
+    if(v2btn) switchTab(v2btn);
+  }
+});
+</script>
 </body>
 </html>
