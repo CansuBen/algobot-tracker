@@ -12,7 +12,7 @@ html,body{height:100%;overflow:hidden;background:#0D1117;font-family:'Segoe UI',
 .logo{font-weight:800;font-size:15px;color:#58A6FF;letter-spacing:1px;margin-right:28px;white-space:nowrap;}
 .logo span{color:#8B949E;font-weight:400;}
 .tabs{display:flex;gap:2px;align-items:center;height:100%;}
-.tab{display:flex;align-items:center;gap:7px;padding:0 18px;height:100%;cursor:pointer;border:none;background:transparent;color:#8B949E;font-size:13px;font-family:inherit;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
+.tab{display:flex;align-items:center;gap:7px;padding:0 18px;height:100%;cursor:pointer;border:none;background:transparent;color:#8B949E;font-size:13px;font-family:inherit;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;position:relative;}
 .tab:hover{color:#E6EDF3;}
 .tab.active{color:#E6EDF3;border-bottom-color:#58A6FF;}
 .tab .vpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:rgba(88,166,255,.12);color:#58A6FF;border:1px solid rgba(88,166,255,.25);}
@@ -60,22 +60,33 @@ iframe.visible{display:block;}
       <div class="spin"></div>
       <p>Yükleniyor...</p>
     </div>
-    <iframe id="frame-v1" src="v1/index.html" class="visible" onload="frameLoaded()"></iframe>
-    <iframe id="frame-v2" src="" onload="frameLoaded()"></iframe>
+    <iframe id="frame-v1" src="v1/index.html" class="visible" onload="frameLoaded(this)"></iframe>
+    <iframe id="frame-v2" src="" onload="frameLoaded(this)"></iframe>
   </div>
 </div>
 <script>
+let activeFrame = 'frame-v1';
 let loaded = {v1: false, v2: false};
-function frameLoaded(){
+
+function frameLoaded(iframe){
   document.getElementById('loading').classList.add('hidden');
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    const nav = doc.querySelector('nav');
+    if(nav) nav.style.display = 'none';
+    const main = doc.querySelector('main');
+    if(main) main.style.paddingTop = '24px';
+  } catch(e){}
 }
+
 function switchTab(btn){
   if(btn.classList.contains('active')) return;
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   const src = btn.dataset.src;
   const key = src.split('/')[0];
-  const frame = document.getElementById('frame-' + key);
+  const frameId = 'frame-' + key;
+  const frame = document.getElementById(frameId);
   document.querySelectorAll('iframe').forEach(f => f.classList.remove('visible'));
   if(!loaded[key]){
     document.getElementById('loading').classList.remove('hidden');
@@ -83,8 +94,10 @@ function switchTab(btn){
     loaded[key] = true;
   }
   frame.classList.add('visible');
+  activeFrame = frameId;
   location.hash = key;
 }
+
 window.addEventListener('DOMContentLoaded', () => {
   loaded['v1'] = true;
   const hash = location.hash.replace('#','');
